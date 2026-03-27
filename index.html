@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Anniversary 13th PT. MYRZ Indonesia</title>
+    <style>
+        /* Import Font */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap');
+
+        /* === GLOBAL STYLES === */
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: #000000; /* Latar belakang hitam solid */
+            color: #ffffff;
+            margin: 0; 
+            padding: 0;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+        }
+
+        /* Gradient Emas Mewah untuk Teks */
+        .gold-gradient-text {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* === CONTAINER UNDANGAN === */
+        .invitation-container {
+            width: 100%;
+            max-width: 1000px; /* Diperlebar agar muat 3 kolom */
+            padding: 40px 30px;
+            box-sizing: border-box;
+            background-image: radial-gradient(circle at top right, #1a1a1a 0%, #000 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-logo {
+            margin-bottom: 30px;
+        }
+        .header-logo img {
+            max-width: 180px;
+            height: auto;
+        }
+
+        /* --- LAYOUT UTAMA: 3 KOLOM --- */
+        .main-content-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        /* Kolom 1: Angka 13 (Kiri) */
+        .col-left-13 {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        .number-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .big-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 180px;
+            margin: 0;
+            line-height: 1; /* <-- Ubah dari 0.8 menjadi 1 */
+            padding-bottom: 15px; /* <-- Tambahkan ini agar ujung bawah punya ruang */
+            background: linear-gradient(to bottom, #fcf6ba, #b38728, #e8c872, #8a6d1c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 4px 10px rgba(212, 175, 55, 0.2));
+        }
+        .th-text {
+            font-family: 'Great Vibes', cursive; /* Font latin untuk 'Th' */
+            font-size: 40px;
+            color: #d4af37;
+            position: absolute;
+            top: 0;
+            right: -40px;
+        }
+        .col-left-13 h2 { 
+            margin: 20px 0 0 0; 
+            font-size: 26px; 
+            letter-spacing: 1px; 
+        }
+        .col-left-13 p { 
+            margin: 0; 
+            font-size: 14px; 
+            color: #aaa; 
+        }
+
+        /* Kolom 2: Teks Detail Undangan (Tengah) */
+        .col-center-text {
+            flex: 1.5;
+            min-width: 300px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd;
+            padding: 0 10px;
+        }
+        .guest-box {
+            border-left: 2px solid #d4af37;
+            padding-left: 15px;
+            margin: 20px 0;
+        }
+        .guest-box h3 { margin: 0; font-size: 22px; color: #d4af37; }
+        .guest-box p { margin: 0; color: #aaa; }
+
+        .event-details {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+            border-left: 2px solid #d4af37;
+            padding-left: 15px;
+        }
+        .detail-col { display: flex; flex-direction: column; font-size: 18px; }
+        .detail-col strong { color: #fff; font-weight: 400; }
+        .detail-divider { width: 2px; height: 50px; background-color: #d4af37; }
+
+        .location-box h3 { margin: 0; color: #d4af37; font-size: 18px; font-weight: 600;}
+        .location-box p { margin: 0; color: #aaa; }
+
+        .contact-info { 
+            margin-top: 30px; 
+            font-size: 13px; 
+            border-top: 1px solid #333; 
+            padding-top: 15px;
+        }
+        .contact-info strong { font-size: 16px; color: #fff; }
+
+        /* Kolom 3: Gambar Beruang (Kanan) */
+        .col-right-bear {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            min-width: 250px;
+        }
+        .col-right-bear img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            object-fit: contain;
+            /* Memberi sedikit jarak bawah agar sejajar */
+            transform: translateY(20px); 
+        }
+
+        /* === FOOTER SOCIAL (Kuning) === */
+        .footer-social {
+            width: 100%;
+            background-color: #ffd700;
+            color: #000;
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+
+        /* === BAGIAN BAWAH: FORM RSVP === */
+        .form-section {
+            width: 100%;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            background-color: #0a0a0a;
+        }
+        .card { 
+            background: #111; 
+            padding: 40px; 
+            border-radius: 15px; 
+            border: 1px solid #333;
+            box-shadow: 0 4px 25px rgba(212, 175, 55, 0.1); 
+            width: 100%; 
+            max-width: 500px; 
+            text-align: center; 
+            color: #fff; 
+        }
+        .card h1 { margin-bottom: 5px; font-family: 'Playfair Display', serif; }
+        .card p { color: #aaa; margin-bottom: 25px; font-size: 14px; }
+        form { display: flex; flex-direction: column; text-align: left; }
+        label { font-weight: 600; margin-bottom: 8px; font-size: 14px; color: #ddd;}
+        input, select, textarea { 
+            padding: 12px; 
+            margin-bottom: 20px; 
+            background-color: #222;
+            border: 1px solid #444; 
+            color: #fff;
+            border-radius: 5px; 
+            font-family: inherit;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        button { 
+            background: linear-gradient(to right, #b38728, #e8c872, #b38728);
+            color: #000; 
+            border: none; 
+            padding: 14px; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        button:hover { opacity: 0.9; }
+        button:disabled { background: #555; cursor: not-allowed; }
+        #status { margin-top: 15px; font-weight: bold; text-align: center; font-size: 14px;}
+
+        /* === RESPONSIVE UNTUK HP === */
+        @media (max-width: 850px) {
+            .main-content-grid {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .col-left-13 { text-align: center; margin-bottom: 30px; }
+            .th-text { right: -20px; }
+            
+            .col-center-text { padding: 0; margin-bottom: 30px; }
+            .guest-box, .event-details, .location-box {
+                border-left: none;
+                border-top: 2px solid #d4af37;
+                padding-left: 0;
+                padding-top: 15px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .event-details { flex-direction: column; gap: 10px; }
+            .detail-divider { width: 50%; height: 2px; margin: 5px 0; }
+            
+            .col-right-bear { justify-content: center; }
+            .col-right-bear img { transform: translateY(0); max-width: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-container">
+        
+        <div class="header-logo">
+            <img src="logo_myrz.png" alt="Logo MYRZ Trading & Consulting">
+        </div>
+
+        <div class="main-content-grid">
+            
+            <div class="col-left-13">
+                <div class="number-wrapper">
+                    <h1 class="big-number">13</h1>
+                    <span class="th-text">Th</span>
+                </div>
+                <h2 class="gold-gradient-text">MYRZ INDONESIA</h2>
+                <p>synergy brings energy</p>
+            </div>
+
+            <div class="col-center-text">
+                <p>Untuk merayakan ulang tahun PT. MYRZ Indonesia yang ke-13, dan bertepatan dengan Halalbihalal untuk mempererat tali silaturahmi kami mengundang Bapak/Ibu :</p>
+                
+                <div class="guest-box">
+                    <h3>SI FULAN</h3>
+                    <p>PT. Masih Asal</p>
+                </div>
+
+                <p>untuk ikut memeriahkan acara yang kami adakan yang diselenggarakan pada :</p>
+
+                <div class="event-details">
+                    <div class="detail-col">
+                        <strong>01 April</strong>
+                        <span style="font-size: 14px; color: #aaa;">2026</span>
+                    </div>
+                    <div class="detail-divider"></div>
+                    <div class="detail-col">
+                        <strong>00.00 -</strong>
+                        <span style="font-size: 14px; color: #aaa;">00.00 WIB</span>
+                    </div>
+                </div>
+
+                <p style="margin-bottom: 5px;">yang diselenggarakan di</p>
+                <div class="location-box guest-box">
+                    <h3>SHABU KOJO</h3>
+                    <p>Jl. Masih asal</p>
+                </div>
+
+                <div class="contact-info">
+                    Konfirmasi kehadiran dengan menghubungi nomor Whatsapp Kami di bawah ini<br>
+                    <strong>+62 895 3271 70338</strong>
+                </div>
+            </div>
+
+            <div class="col-right-bear">
+                <img src="beku.png" alt="Mascot Bear">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer-social">
+        <span>📷 myrz.indonesia</span>
+        <span>🎵 myrz.id</span>
+        <span>▶️ myrzindonesia</span>
+        <span>🌐 www.myrzindonesia.com</span>
+    </div>
+
+    <div class="form-section">
+        <div class="card">
+            <h1 class="gold-gradient-text">RSVP Kehadiran</h1>
+            <p>Mohon konfirmasi kehadiran Anda melalui form di bawah ini.</p>
+
+            <form id="rsvpForm">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama" placeholder="Contoh: Si Fulan" required>
+
+                <label for="kehadiran">Apakah Anda akan hadir?</label>
+                <select id="kehadiran" required>
+                    <option value="" disabled selected>Pilih status kehadiran...</option>
+                    <option value="Hadir" style="color:#000;">Ya, saya hadir</option>
+                    <option value="Tidak Hadir" style="color:#000;">Maaf, saya tidak hadir</option>
+                </select>
+
+                <label for="pesan">Pesan & Harapan:</label>
+                <textarea id="pesan" rows="3" placeholder="Tulis ucapan untuk Anniversary ke-13..."></textarea>
+
+                <button type="submit" id="btnSubmit">Kirim RSVP</button>
+                <div id="status"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const SHEETDB_URL = 'https://sheetdb.io/api/v1/GANTI_DENGAN_KODE_API_KAMU';
+        
+        const form = document.getElementById('rsvpForm');
+        const btnSubmit = document.getElementById('btnSubmit');
+        const statusDiv = document.getElementById('status');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            btnSubmit.innerHTML = 'Mengirim Data...';
+            btnSubmit.disabled = true;
+            statusDiv.innerHTML = '';
+
+            const payload = {
+                data: [
+                    {
+                        "id": "INCREMENT", 
+                        "nama": document.getElementById('nama').value,
+                        "kehadiran": document.getElementById('kehadiran').value,
+                        "pesan": document.getElementById('pesan').value
+                    }
+                ]
+            };
+
+            fetch(SHEETDB_URL, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                statusDiv.innerHTML = '✔️ Terima kasih! RSVP berhasil tersimpan.';
+                statusDiv.style.color = '#4CAF50';
+                form.reset();
+            })
+            .catch((error) => {
+                statusDiv.innerHTML = '❌ Gagal mengirim data. Silakan coba lagi.';
+                statusDiv.style.color = '#f44336';
+                console.error(error);
+            })
+            .finally(() => {
+                btnSubmit.innerHTML = 'Kirim RSVP';
+                btnSubmit.disabled = false;
+            });
+        });
+    </script>
+
+</body>
+</html>
