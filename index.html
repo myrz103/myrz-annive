@@ -364,21 +364,24 @@
         const urlParams = new URLSearchParams(window.location.search);
         let namaDariLink = urlParams.get('to');
 
-        // Jika ada nama di link (?to=Nama), maka proses dan tampilkan
         if (namaDariLink) {
-            // Trik untuk memisahkan teks dempet:
-            // 1. Tambah spasi sebelum huruf kapital (jika sebelumnya bukan spasi)
-            // 2. Tambah spasi sebelum tanda kurung buka '('
-            let namaYangSudahDiberiSpasi = namaDariLink
-                .replace(/([a-z])([A-Z])/g, '$1 $2') // Pisahkan jika ada huruf kecil ketemu huruf besar
-                .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // Pisahkan antar kata yang semuanya huruf besar
-                .replace(/\(/g, ' ('); // Tambah spasi sebelum tanda kurung '('
+            // 1. Buat format untuk di Form bawah (Spasi biasa agar rapi di Excel)
+            let namaUntukForm = namaDariLink
+                .replace(/([a-z])([A-Z])/g, '$1 $2') 
+                .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') 
+                .replace(/\(/g, ' ('); 
 
-            // Tampil di kotak emas undangan
-            document.getElementById('namaTamu').innerText = namaYangSudahDiberiSpasi; 
+            // 2. Buat format untuk Tampilan Atas (Pakai <br> agar PT turun ke bawah)
+            let namaUntukTampilan = namaDariLink
+                .replace(/([a-z])([A-Z])/g, '$1 $2') 
+                .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') 
+                .replace(/\(/g, '<br>('); // <--- Disisipkan tag enter HTML
+
+            // Tampil di kotak emas undangan (Harus pakai innerHTML agar <br> terbaca)
+            document.getElementById('namaTamu').innerHTML = namaUntukTampilan; 
             
-            // Isi otomatis di form bawah (Boleh pakai yang sudah ada spasinya atau yang asli)
-            document.getElementById('nama').value = namaYangSudahDiberiSpasi; 
+            // Isi otomatis di form RSVP
+            document.getElementById('nama').value = namaUntukForm; 
         }
 
         // --- 2. FITUR KIRIM DATA KE GOOGLE SHEETS (SHEETDB) ---
