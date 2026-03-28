@@ -36,6 +36,7 @@
             background-image: radial-gradient(circle at top right, #1a1a1a 0%, #000 70%);
             position: relative;
             overflow: hidden;
+            border-bottom: 2px solid #d4af37;
         }
 
         .header-logo {
@@ -68,8 +69,8 @@
             font-family: 'Playfair Display', serif;
             font-size: 180px;
             margin: 0;
-            line-height: 1; /* <-- Ubah dari 0.8 menjadi 1 */
-            padding-bottom: 15px; /* <-- Tambahkan ini agar ujung bawah punya ruang */
+            line-height: 1; /* Diperbaiki agar tidak terpotong */
+            padding-bottom: 15px; /* Memberi ruang untuk lengkungan bawah angka 3 */
             background: linear-gradient(to bottom, #fcf6ba, #b38728, #e8c872, #8a6d1c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -84,7 +85,7 @@
             right: -40px;
         }
         .col-left-13 h2 { 
-            margin: 20px 0 0 0; 
+            margin: 10px 0 0 0; 
             font-size: 26px; 
             letter-spacing: 1px; 
         }
@@ -108,7 +109,12 @@
             padding-left: 15px;
             margin: 20px 0;
         }
-        .guest-box h3 { margin: 0; font-size: 22px; color: #d4af37; }
+        .guest-box h3 { 
+            margin: 0; 
+            font-size: 22px; 
+            color: #d4af37; 
+            text-transform: uppercase; 
+        }
         .guest-box p { margin: 0; color: #aaa; }
 
         .event-details {
@@ -120,7 +126,7 @@
             padding-left: 15px;
         }
         .detail-col { display: flex; flex-direction: column; font-size: 18px; }
-        .detail-col strong { color: #fff; font-weight: 400; }
+        .detail-col strong { color: #fff; font-weight: 600; }
         .detail-divider { width: 2px; height: 50px; background-color: #d4af37; }
 
         .location-box h3 { margin: 0; color: #d4af37; font-size: 18px; font-weight: 600;}
@@ -147,7 +153,6 @@
             max-width: 300px;
             height: auto;
             object-fit: contain;
-            /* Memberi sedikit jarak bawah agar sejajar */
             transform: translateY(20px); 
         }
 
@@ -238,12 +243,13 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                text-align: center;
             }
             .event-details { flex-direction: column; gap: 10px; }
             .detail-divider { width: 50%; height: 2px; margin: 5px 0; }
             
-            .col-right-bear { justify-content: center; }
-            .col-right-bear img { transform: translateY(0); max-width: 250px; }
+            .col-right-bear { justify-content: center; width: 100%; }
+            .col-right-bear img { transform: translateY(0); max-width: 250px; margin-top: 20px;}
         }
     </style>
 </head>
@@ -267,11 +273,10 @@
             </div>
 
             <div class="col-center-text">
-                <p>Untuk merayakan ulang tahun PT. MYRZ Indonesia yang ke-13, dan bertepatan dengan Halalbihalal untuk mempererat tali silaturahmi kami mengundang Bapak/Ibu :</p>
+                <p>Untuk merayakan ulang tahun PT. MYRZ Indonesia yang ke-13, dan bertepatan dengan Halalbihalal untuk mempererat tali silaturahmi kami mengundang Bapak/Ibu/Saudara/i :</p>
                 
                 <div class="guest-box">
-                    <h3>SI FULAN</h3>
-                    <p>PT. Masih Asal</p>
+                    <h3 id="namaTamu">Tamu Undangan</h3>
                 </div>
 
                 <p>untuk ikut memeriahkan acara yang kami adakan yang diselenggarakan pada :</p>
@@ -283,15 +288,15 @@
                     </div>
                     <div class="detail-divider"></div>
                     <div class="detail-col">
-                        <strong>00.00 -</strong>
-                        <span style="font-size: 14px; color: #aaa;">00.00 WIB</span>
+                        <strong>13:45 -</strong>
+                        <span style="font-size: 14px; color: #aaa;">Selesai</span>
                     </div>
                 </div>
 
                 <p style="margin-bottom: 5px;">yang diselenggarakan di</p>
                 <div class="location-box guest-box">
                     <h3>SHABU KOJO</h3>
-                    <p>Jl. Masih asal</p>
+                    <p>Jln. Alternatif Cibubur KM.6 No.9, Nagrak, Kec. Gunung Putri, Kabupaten Bogor</p>
                 </div>
 
                 <div class="contact-info">
@@ -301,7 +306,7 @@
             </div>
 
             <div class="col-right-bear">
-                <img src="beku.png" alt="Mascot Bear">
+                <img src="Si BeKu MYRZ 13Th.png" alt="Mascot Bear">
             </div>
 
         </div>
@@ -340,7 +345,18 @@
     </div>
 
     <script>
-        const SHEETDB_URL = 'https://sheetdb.io/api/v1/GANTI_DENGAN_KODE_API_KAMU';
+        // --- 1. FITUR BACA NAMA TAMU DARI URL ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const namaDariLink = urlParams.get('to');
+
+        // Jika ada nama di link (?to=Nama), maka tampilkan
+        if (namaDariLink) {
+            document.getElementById('namaTamu').innerText = namaDariLink; // Tampil di atas
+            document.getElementById('nama').value = namaDariLink; // Isi otomatis di form bawah
+        }
+
+        // --- 2. FITUR KIRIM DATA KE GOOGLE SHEETS (SHEETDB) ---
+        const SHEETDB_URL = 'https://sheetdb.io/api/v1/zk0xfr4tg9zxd';
         
         const form = document.getElementById('rsvpForm');
         const btnSubmit = document.getElementById('btnSubmit');
@@ -376,7 +392,10 @@
             .then((data) => {
                 statusDiv.innerHTML = '✔️ Terima kasih! RSVP berhasil tersimpan.';
                 statusDiv.style.color = '#4CAF50';
-                form.reset();
+                
+                // Reset form, tapi biarkan namanya tetap terisi jika berasal dari URL
+                document.getElementById('kehadiran').value = '';
+                document.getElementById('pesan').value = '';
             })
             .catch((error) => {
                 statusDiv.innerHTML = '❌ Gagal mengirim data. Silakan coba lagi.';
