@@ -345,14 +345,25 @@
     </div>
 
     <script>
-        // --- 1. FITUR BACA NAMA TAMU DARI URL ---
+       // --- 1. FITUR BACA NAMA TAMU DARI URL ---
         const urlParams = new URLSearchParams(window.location.search);
-        const namaDariLink = urlParams.get('to');
+        let namaDariLink = urlParams.get('to');
 
-        // Jika ada nama di link (?to=Nama), maka tampilkan
+        // Jika ada nama di link (?to=Nama), maka proses dan tampilkan
         if (namaDariLink) {
-            document.getElementById('namaTamu').innerText = namaDariLink; // Tampil di atas
-            document.getElementById('nama').value = namaDariLink; // Isi otomatis di form bawah
+            // Trik untuk memisahkan teks dempet:
+            // 1. Tambah spasi sebelum huruf kapital (jika sebelumnya bukan spasi)
+            // 2. Tambah spasi sebelum tanda kurung buka '('
+            let namaYangSudahDiberiSpasi = namaDariLink
+                .replace(/([a-z])([A-Z])/g, '$1 $2') // Pisahkan jika ada huruf kecil ketemu huruf besar
+                .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // Pisahkan antar kata yang semuanya huruf besar
+                .replace(/\(/g, ' ('); // Tambah spasi sebelum tanda kurung '('
+
+            // Tampil di kotak emas undangan
+            document.getElementById('namaTamu').innerText = namaYangSudahDiberiSpasi; 
+            
+            // Isi otomatis di form bawah (Boleh pakai yang sudah ada spasinya atau yang asli)
+            document.getElementById('nama').value = namaYangSudahDiberiSpasi; 
         }
 
         // --- 2. FITUR KIRIM DATA KE GOOGLE SHEETS (SHEETDB) ---
