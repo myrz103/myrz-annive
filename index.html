@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Anniversary 13th PT. MYRZ Indonesia</title>
     <style>
-        /* Import Font */
+  
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600;700&family=Great+Vibes&family=Pinyon+Script&display=swap');
 
-        /* === GLOBAL STYLES === */
         body { 
             font-family: 'Poppins', sans-serif; 
-            background-color: #000000; /* Latar belakang hitam solid */
+            background-color: #000000; 
             color: #ffffff;
             margin: 0; 
             padding: 0;
@@ -20,17 +19,15 @@
             align-items: center;
         }
 
-        /* Gradient Emas Mewah untuk Teks */
         .gold-gradient-text {
             background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* === CONTAINER UNDANGAN === */
         .invitation-container {
             width: 100%;
-            max-width: 1000px; /* Diperlebar agar muat 3 kolom */
+            max-width: 1000px; 
             padding: 40px 30px;
             box-sizing: border-box;
             background-image: radial-gradient(circle at top right, #1a1a1a 0%, #000 70%);
@@ -47,7 +44,6 @@
             height: auto;
         }
 
-        /* --- LAYOUT UTAMA: 3 KOLOM --- */
         .main-content-grid {
             display: flex;
             justify-content: space-between;
@@ -55,7 +51,6 @@
             gap: 20px;
         }
 
-        /* Kolom 1: Angka 13 (Kiri) */
         .col-left-13 {
             flex: 1;
             min-width: 200px;
@@ -69,15 +64,15 @@
             font-family: 'Playfair Display', serif;
             font-size: 180px;
             margin: 0;
-            line-height: 1; /* Diperbaiki agar tidak terpotong */
-            padding-bottom: 15px; /* Memberi ruang untuk lengkungan bawah angka 3 */
+            line-height: 1; 
+            padding-bottom: 15px; 
             background: linear-gradient(to bottom, #fcf6ba, #b38728, #e8c872, #8a6d1c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 4px 10px rgba(212, 175, 55, 0.2));
         }
         .th-text {
-            font-family: 'Great Vibes', cursive; /* Font latin untuk 'Th' */
+            font-family: 'Great Vibes', cursive; 
             font-size: 40px;
             color: #d4af37;
             position: absolute;
@@ -95,9 +90,8 @@
             color: #aaa; 
         }
         
-        /* Tambahan untuk teks "Myrz & Friends Gathering" */
         .gathering-text {
-            font-family: 'Pinyon Script', cursive; /* Menggunakan font latin elegan */
+            font-family: 'Pinyon Script', cursive;
             font-size: 32px;
             color: #d4af37;
             margin-top: 15px;
@@ -105,7 +99,6 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* Kolom 2: Teks Detail Undangan (Tengah) */
         .col-center-text {
             flex: 1.5;
             min-width: 300px;
@@ -149,7 +142,6 @@
         }
         .contact-info strong { font-size: 16px; color: #fff; }
 
-        /* Kolom 3: Gambar Beruang (Kanan) */
         .col-right-bear {
             flex: 1;
             display: flex;
@@ -165,7 +157,6 @@
             transform: translateY(20px); 
         }
 
-        /* === FOOTER SOCIAL (Kuning) === */
         .footer-social {
             width: 100%;
             background-color: #ffd700;
@@ -181,7 +172,6 @@
             box-sizing: border-box;
         }
 
-        /* === BAGIAN BAWAH: FORM RSVP === */
         .form-section {
             width: 100%;
             padding: 50px 20px;
@@ -233,7 +223,6 @@
         button:disabled { background: #555; cursor: not-allowed; }
         #status { margin-top: 15px; font-weight: bold; text-align: center; font-size: 14px;}
 
-        /* === RESPONSIVE UNTUK HP === */
         @media (max-width: 850px) {
             .main-content-grid {
                 flex-direction: column;
@@ -360,31 +349,25 @@
     </div>
 
     <script>
-       // --- 1. FITUR BACA NAMA TAMU DARI URL ---
         const urlParams = new URLSearchParams(window.location.search);
         let namaDariLink = urlParams.get('to');
 
         if (namaDariLink) {
-            // 1. Buat format untuk di Form bawah (Spasi biasa agar rapi di Excel)
             let namaUntukForm = namaDariLink
                 .replace(/([a-z])([A-Z])/g, '$1 $2') 
                 .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') 
                 .replace(/\(/g, ' ('); 
 
-            // 2. Buat format untuk Tampilan Atas (Pakai <br> agar PT turun ke bawah)
             let namaUntukTampilan = namaDariLink
                 .replace(/([a-z])([A-Z])/g, '$1 $2') 
                 .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') 
-                .replace(/\(/g, '<br>('); // <--- Disisipkan tag enter HTML
+                .replace(/\(/g, '<br>('); 
 
-            // Tampil di kotak emas undangan (Harus pakai innerHTML agar <br> terbaca)
             document.getElementById('namaTamu').innerHTML = namaUntukTampilan; 
             
-            // Isi otomatis di form RSVP
             document.getElementById('nama').value = namaUntukForm; 
         }
 
-        // --- 2. FITUR KIRIM DATA KE GOOGLE SHEETS (SHEETDB) ---
         const SHEETDB_URL = 'https://sheetdb.io/api/v1/zk0xfr4tg9zxd';
         
         const form = document.getElementById('rsvpForm');
@@ -422,7 +405,6 @@
                 statusDiv.innerHTML = '✔️ Terima kasih! RSVP berhasil tersimpan.';
                 statusDiv.style.color = '#4CAF50';
                 
-                // Reset form, tapi biarkan namanya tetap terisi jika berasal dari URL
                 document.getElementById('kehadiran').value = '';
                 document.getElementById('pesan').value = '';
             })
