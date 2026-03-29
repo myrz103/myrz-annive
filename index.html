@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Anniversary 13th PT. MYRZ Indonesia</title>
     <style>
-  
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600;700&family=Great+Vibes&family=Pinyon+Script&display=swap');
 
         body { 
@@ -296,12 +295,12 @@
                 </div>
 
                 <p style="margin-bottom: 5px;">yang diselenggarakan di</p>
-               <div class="location-box guest-box">
-    <a href="https://maps.app.goo.gl/hG7uDTjyaZu6nEgQ8" target="_blank" style="text-decoration: none; color: inherit;">
-        <h3>SHABU KOJO</h3>
-        <p>Jln. Alternatif Cibubur KM.6 No.9, Nagrak, Kec. Gunung Putri, Kabupaten Bogor</p>
-    </a>
-</div>
+                <div class="location-box guest-box">
+                    <a href="https://maps.app.goo.gl/hG7uDTjyaZu6nEgQ8" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h3>SHABU KOJO</h3>
+                        <p>Jln. Alternatif Cibubur KM.6 No.9, Nagrak, Kec. Gunung Putri, Kabupaten Bogor</p>
+                    </a>
+                </div>
 
                 <div class="contact-info">
                     Konfirmasi kehadiran dengan menghubungi nomor Whatsapp Kami di bawah ini<br>
@@ -331,6 +330,9 @@
             <form id="rsvpForm">
                 <label for="nama">Nama Lengkap:</label>
                 <input type="text" id="nama" placeholder="Contoh: Si Fulan" required>
+
+                <label for="email">Alamat Email:</label>
+                <input type="email" id="email" placeholder="Contoh: masukan email Anda" required>
 
                 <label for="kehadiran">Apakah Anda akan hadir?</label>
                 <select id="kehadiran" required>
@@ -386,6 +388,7 @@
                     {
                         "id": "INCREMENT", 
                         "nama": document.getElementById('nama').value,
+                        "email": document.getElementById('email').value, // Menambahkan pengambilan data email
                         "kehadiran": document.getElementById('kehadiran').value,
                         "pesan": document.getElementById('pesan').value
                     }
@@ -405,6 +408,8 @@
                 statusDiv.innerHTML = '✔️ Terima kasih! RSVP berhasil tersimpan.';
                 statusDiv.style.color = '#4CAF50';
                 
+                // Reset form input tambahan (biarkan nama jika dari url)
+                document.getElementById('email').value = '';
                 document.getElementById('kehadiran').value = '';
                 document.getElementById('pesan').value = '';
             })
