@@ -35,13 +35,8 @@
             border-bottom: 2px solid #d4af37;
         }
 
-        .header-logo {
-            margin-bottom: 30px;
-        }
-        .header-logo img {
-            max-width: 180px;
-            height: auto;
-        }
+        .header-logo { margin-bottom: 30px; }
+        .header-logo img { max-width: 180px; height: auto; }
 
         .main-content-grid {
             display: flex;
@@ -78,16 +73,8 @@
             top: 0;
             right: -40px;
         }
-        .col-left-13 h2 { 
-            margin: 10px 0 0 0; 
-            font-size: 26px; 
-            letter-spacing: 1px; 
-        }
-        .col-left-13 p { 
-            margin: 0; 
-            font-size: 14px; 
-            color: #aaa; 
-        }
+        .col-left-13 h2 { margin: 10px 0 0 0; font-size: 26px; letter-spacing: 1px; }
+        .col-left-13 p { margin: 0; font-size: 14px; color: #aaa; }
         
         .gathering-text {
             font-family: 'Pinyon Script', cursive;
@@ -111,11 +98,7 @@
             padding-left: 15px;
             margin: 20px 0;
         }
-        .guest-box h3 { 
-            margin: 0; 
-            font-size: 22px; 
-            color: #d4af37; 
-        }
+        .guest-box h3 { margin: 0; font-size: 22px; color: #d4af37; }
         .guest-box p { margin: 0; color: #aaa; }
 
         .event-details {
@@ -253,13 +236,11 @@
 <body>
 
     <div class="invitation-container">
-        
         <div class="header-logo">
             <img src="logo_myrz.png" alt="Logo MYRZ Trading & Consulting">
         </div>
 
         <div class="main-content-grid">
-            
             <div class="col-left-13">
                 <div class="number-wrapper">
                     <h1 class="big-number">13</h1>
@@ -267,10 +248,7 @@
                 </div>
                 <h2 class="gold-gradient-text">MYRZ INDONESIA</h2>
                 <p>synergy brings energy</p>
-                
-                <div class="gathering-text">
-                    Myrz & Friends Gathering
-                </div>
+                <div class="gathering-text">Myrz & Friends Gathering</div>
             </div>
 
             <div class="col-center-text">
@@ -296,7 +274,7 @@
 
                 <p style="margin-bottom: 5px;">yang diselenggarakan di</p>
                 <div class="location-box guest-box">
-                    <a href="https://maps.app.goo.gl/hG7uDTjyaZu6nEgQ8" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://maps.app.goo.gl/9Rz3S5E1E6gE2jN8A" target="_blank" style="text-decoration: none; color: inherit;">
                         <h3>SHABU KOJO</h3>
                         <p>Jln. Alternatif Cibubur KM.6 No.9, Nagrak, Kec. Gunung Putri, Kabupaten Bogor</p>
                     </a>
@@ -311,7 +289,6 @@
             <div class="col-right-bear">
                 <img src="Si BeKu MYRZ 13Th.png" alt="Mascot Bear">
             </div>
-
         </div>
     </div>
 
@@ -329,20 +306,23 @@
 
             <form id="rsvpForm">
                 <label for="nama">Nama Lengkap:</label>
-                <input type="text" id="nama" placeholder="Contoh: Si Fulan" required>
+                <input type="text" id="nama" name="nama" placeholder="Contoh: Si Fulan" required>
+
+                <label for="perusahaan">Nama Perusahaan:</label>
+                <input type="text" id="perusahaan" name="perusahaan" placeholder="masukan nama perusahaan Anda">
 
                 <label for="email">Alamat Email:</label>
-                <input type="email" id="email" placeholder="masukan email Anda" required>
+                <input type="email" id="email" name="email" placeholder="masukan email Anda" required>
 
                 <label for="kehadiran">Apakah Anda akan hadir?</label>
-                <select id="kehadiran" required>
+                <select id="kehadiran" name="kehadiran" required>
                     <option value="" disabled selected>Pilih status kehadiran...</option>
                     <option value="Hadir" style="color:#000;">Ya, saya hadir</option>
                     <option value="Tidak Hadir" style="color:#000;">Maaf, saya tidak hadir</option>
                 </select>
 
                 <label for="pesan">Pesan & Harapan:</label>
-                <textarea id="pesan" rows="3" placeholder="Tulis ucapan untuk Anniversary ke-13..."></textarea>
+                <textarea id="pesan" name="pesan" rows="3" placeholder="Tulis ucapan untuk Anniversary ke-13..."></textarea>
 
                 <button type="submit" id="btnSubmit">Kirim RSVP</button>
                 <div id="status"></div>
@@ -351,26 +331,37 @@
     </div>
 
     <script>
+        // --- 1. FITUR BACA NAMA TAMU DARI URL ---
         const urlParams = new URLSearchParams(window.location.search);
         let namaDariLink = urlParams.get('to');
 
         if (namaDariLink) {
-            let namaUntukForm = namaDariLink
+            let teksTerformat = namaDariLink
                 .replace(/([a-z])([A-Z])/g, '$1 $2') 
-                .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') 
-                .replace(/\(/g, ' ('); 
+                .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2');
 
-            let namaUntukTampilan = namaDariLink
-                .replace(/([a-z])([A-Z])/g, '$1 $2') 
-                .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') 
-                .replace(/\(/g, '<br>('); 
+            let namaUtama = teksTerformat;
+            let namaPT = "";
 
+            if (teksTerformat.includes('(')) {
+                let bagian = teksTerformat.split('(');
+                namaUtama = bagian[0].trim(); 
+                namaPT = "(" + bagian[1].trim(); 
+                let namaPTUntukInput = bagian[1].replace(')', '').trim();
+                document.getElementById('perusahaan').value = namaPTUntukInput;
+            }
+
+            let namaUntukTampilan = namaUtama;
+            if(namaPT !== "") {
+                namaUntukTampilan += "<br>" + namaPT; 
+            }
             document.getElementById('namaTamu').innerHTML = namaUntukTampilan; 
-            
-            document.getElementById('nama').value = namaUntukForm; 
+            document.getElementById('nama').value = namaUtama; 
         }
 
-        const SHEETDB_URL = 'https://sheetdb.io/api/v1/zk0xfr4tg9zxd';
+        // --- 2. FITUR KIRIM DATA KE GOOGLE APPS SCRIPT ---
+        // GANTI URL DI BAWAH INI DENGAN URL WEB APP DARI GOOGLE APPS SCRIPT-MU TADI
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySo6JIsi7SAQK4e-YibCNUGReLRjAdSemb4qAabIefp3OtBsSOM0BtWvAAbVOu4oU7/exec';
         
         const form = document.getElementById('rsvpForm');
         const btnSubmit = document.getElementById('btnSubmit');
@@ -379,44 +370,35 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            btnSubmit.innerHTML = 'Mengirim Data...';
+            btnSubmit.innerHTML = 'Memproses...';
             btnSubmit.disabled = true;
             statusDiv.innerHTML = '';
 
-            const payload = {
-                data: [
-                    {
-                        "id": "INCREMENT", 
-                        "nama": document.getElementById('nama').value,
-                        "email": document.getElementById('email').value, // Menambahkan pengambilan data email
-                        "kehadiran": document.getElementById('kehadiran').value,
-                        "pesan": document.getElementById('pesan').value
-                    }
-                ]
-            };
+            // Membungkus seluruh data form secara otomatis
+            let formData = new FormData(form);
 
-            fetch(SHEETDB_URL, {
+            fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
+                body: formData
             })
-            .then((response) => response.json())
-            .then((data) => {
-                statusDiv.innerHTML = '✔️ Terima kasih! RSVP berhasil tersimpan.';
-                statusDiv.style.color = '#4CAF50';
-                
-                // Reset form input tambahan (biarkan nama jika dari url)
-                document.getElementById('email').value = '';
-                document.getElementById('kehadiran').value = '';
-                document.getElementById('pesan').value = '';
+            .then(response => response.json())
+            .then(data => {
+                if(data.result === "success") {
+                    statusDiv.innerHTML = '✔️ Terima kasih! RSVP Anda tersimpan & Undangan telah dikirim ke email.';
+                    statusDiv.style.color = '#4CAF50';
+                    
+                    // Bersihkan form
+                    document.getElementById('email').value = '';
+                    document.getElementById('kehadiran').value = '';
+                    document.getElementById('pesan').value = '';
+                } else {
+                    throw new Error(data.message || "Unknown error");
+                }
             })
-            .catch((error) => {
-                statusDiv.innerHTML = '❌ Gagal mengirim data. Silakan coba lagi.';
+            .catch(error => {
+                statusDiv.innerHTML = '❌ Gagal mengirim. Pastikan email benar atau coba lagi.';
                 statusDiv.style.color = '#f44336';
-                console.error(error);
+                console.error("Error:", error);
             })
             .finally(() => {
                 btnSubmit.innerHTML = 'Kirim RSVP';
