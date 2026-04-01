@@ -331,7 +331,6 @@
     </div>
 
     <script>
-        // --- 1. FITUR BACA NAMA TAMU DARI URL ---
         const urlParams = new URLSearchParams(window.location.search);
         let namaDariLink = urlParams.get('to');
 
@@ -359,8 +358,7 @@
             document.getElementById('nama').value = namaUtama; 
         }
 
-        // --- 2. FITUR KIRIM DATA KE GOOGLE APPS SCRIPT ---
-        // GANTI URL DI BAWAH INI DENGAN URL WEB APP DARI GOOGLE APPS SCRIPT-MU TADI
+        // --- Link google apps script ---
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySo6JIsi7SAQK4e-YibCNUGReLRjAdSemb4qAabIefp3OtBsSOM0BtWvAAbVOu4oU7/exec';
         
         const form = document.getElementById('rsvpForm');
@@ -374,7 +372,6 @@
             btnSubmit.disabled = true;
             statusDiv.innerHTML = '';
 
-            // Membungkus seluruh data form secara otomatis
             let formData = new FormData(form);
 
             fetch(APPS_SCRIPT_URL, {
@@ -387,8 +384,7 @@
                     statusDiv.innerHTML = '✔️ Terima kasih! RSVP Anda tersimpan.';
                     statusDiv.style.color = '#4CAF50';
                     
-                    // Bersihkan form
-                    document.getElementById('email').value = '';
+\                    document.getElementById('email').value = '';
                     document.getElementById('kehadiran').value = '';
                     document.getElementById('pesan').value = '';
                 } else {
